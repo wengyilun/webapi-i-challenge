@@ -37,14 +37,18 @@ server.get('/api/users/:id', (req, res) => {
 server.delete('/api/users/:id', (req, res) => {
 	const userId = req.params.id
 	console.log('user',userId)
-	
 	db.remove(userId)
-	.then(() => {
-		res.status(200).end()
+	.then((id) => {
+		console.log('res', id)
+		if(id > 0){
+			res.status(202).json({message: 'Update Successful'})
+		}else{
+			res.status(404).json({message: 'record not found'})
+		}
 	})
 	.catch((err) => {
 		console.log('err', err)
-		res.status(404).json({ message: "The user with the specified ID does not exist." })
+		res.status(500).json({ message: `there was an error deleting ${err}`})
 	})
 })
 server.put('/api/users/:id', (req, res) => {
