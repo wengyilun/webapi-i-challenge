@@ -18,7 +18,17 @@ server.get('/api/users', (req, res) => {
 		})
 })
 server.post('/api/users', (req, res) => {
-
+	const user = req.body
+	console.log('user',user)
+	
+	db.insert(user)
+	.then((result) => {
+		res.status(201).json(result)
+	})
+	.catch((err) => {
+		console.log('err', err)
+		res.status(400).json({ errorMessage: "Please provide name and bio for the user." })
+	})
 })
 
 server.get('/api/users/:id', (req, res) => {
