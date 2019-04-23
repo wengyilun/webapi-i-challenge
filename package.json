@@ -10,7 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/LambdaSchool/node-express-mini.git"
   },
-  "keywords": [],
+  "keywords": [
+    "backend",
+    "guided"
+  ],
   "author": "Lambda School",
   "license": "ISC",
   "bugs": {
@@ -21,7 +24,10 @@
     "nodemon": "^1.18.10"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "knex": "^0.16.3",
+    "moment": "^2.24.0",
     "sqlite3": "^4.0.6"
   }
 }
