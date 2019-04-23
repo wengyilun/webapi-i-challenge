@@ -99,18 +99,23 @@ export const getUsers= () => dispatch =>{
 }
 
 export const deleteUser= (userId) => dispatch =>{
-	// dispatch({type:DELETE_USER_STARTED})
+	dispatch({type:DELETE_USER_STARTED})
+	const id = userId
 	// return (API.post('/api/login', {...driver, driver:true})
-	return localhost.delete(`/api/login/${userId}`)
+	return localhost.delete(`/api/users/${userId}`)
 	   .then(res =>{
+	   		console.log('deleteUser id:',id)
 			// localStorage.setItem('token', res.data.token)
-		   // dispatch({type: DELETE_USER_SUCCESS, payload: res.data})
-		   return res.data
+			if(res.status === 202){
+				dispatch({type: DELETE_USER_SUCCESS, payload: id})
+			}else{
+				dispatch({type: DELETE_USER_FAILURE, payload: res.data.message})
+			}
 		})
 		.catch(err =>{
 			console.log('err', err.response.error)
-			if (err.response.status === 401) {
-				// dispatch({type: DELETE_USER_FAILURE, payload: err.response.data.message})
+			if (err.response.status === 500) {
+				dispatch({type: DELETE_USER_FAILURE, payload: err.response.data.message})
 			}
 			return err.response
 		})

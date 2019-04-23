@@ -35,8 +35,8 @@ export const adminReducer = (state = initialState, action)=>{
 		case FETCH_USERS_SUCCESS:
 			return {...state,
 				driverSignupStarted:false,
+				serverMessage: 'Creating Driver Account Success',
 				users:action.payload,
-				serverMessage: 'Creating Driver Account Success'
 			}
 		
 		case FETCH_USERS_FAILURE:
@@ -53,7 +53,8 @@ export const adminReducer = (state = initialState, action)=>{
 		case FETCH_USER_SUCCESS:
 			return {...state,
 				driverLoginStarted:false,
-				serverMessage: 'Login Success'
+				serverMessage: 'Login Success',
+			
 			}
 		case FETCH_USER_FAILURE:
 			
@@ -71,10 +72,10 @@ export const adminReducer = (state = initialState, action)=>{
 		case SIGNUP_USER_SUCCESS:
 			return {...state,
 				driverLoginStarted:false,
-				serverMessage: 'Login Success'
+				serverMessage: 'Login Success',
+				users:action.payload,
 			}
 		case SIGNUP_USER_FAILURE:
-			
 			return {...state,
 				driverLoginStarted:false,
 				serverMessage:action.payload
@@ -88,7 +89,8 @@ export const adminReducer = (state = initialState, action)=>{
 		case UPDATE_USER_SUCCESS:
 			return {...state,
 				driverLoginStarted:false,
-				serverMessage: 'Login Success'
+				serverMessage: 'Login Success',
+				users:action.payload,
 			}
 		case UPDATE_USER_FAILURE:
 			
@@ -100,17 +102,24 @@ export const adminReducer = (state = initialState, action)=>{
 		case DELETE_USER_STARTED:
 			return {...state,
 				driverLoginStarted:true,
-				serverMessage: 'Logging in...'
+				serverMessage: 'DELETE_USER_STARTED...'
 			}
+			
 		case DELETE_USER_SUCCESS:
+			console.log('deletedId', action.payload)
+			const filteredUsers =  state.users.filter(el => el.id !== action.payload)
+			console.log(filteredUsers)
+			
 			return {...state,
 				driverLoginStarted:false,
-				serverMessage: 'Login Success'
+				serverMessage: 'DELETE_USER_SUCCESS',
+				users: filteredUsers
 			}
 		case DELETE_USER_FAILURE:
 			return {...state,
 				driverLoginStarted:false,
-				serverMessage:action.payload
+				serverMessage:action.payload,
+				
 			}
 		default:
 			return {...state}

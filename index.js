@@ -60,10 +60,10 @@ server.get('/api/users/:id', (req, res) => {
 server.delete('/api/users/:id', (req, res) => {
 	const userId = req.params.id
 	db.remove(userId)
-	.then((countDeleted) => {
-		console.log('res', countDeleted)
-		if(countDeleted > 0){
-			res.status(202).json({message: 'Delete Successful'})
+	.then((deletedId) => {
+		console.log('res', deletedId)
+		if(deletedId > 0){
+			res.status(202).json(deletedId)
 		}else{
 			res.status(404).json({message: 'record not found'})
 		}
